@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<!-- skill:chrome -->
+<style>
+/* Credit line — bottom-right */
+.design-ui-credit {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  font: 11px/1 system-ui, sans-serif;
+  color: rgba(128,128,128,0.5);
+  pointer-events: none;
+  z-index: 2147483647;
+  transition: opacity 0.4s ease;
+  user-select: none;
+  letter-spacing: 0.02em;
+}
+
+/* Hide chrome on touch devices */
+@media (hover: none) {
+  .design-ui-credit { display: none; }
+}
+
+/* Print fixes */
+@media print {
+  * {
+    transition: none !important;
+    animation: none !important;
+    box-shadow: none !important;
+  }
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .design-ui-credit { display: none !important; }
+}
+
+</style>
+<script>
+(function () {
+    // Chrome UI (hover devices only): credit badge with idle-fade.
+    // Deferred until body exists since the script may run in <head>.
+    function initChromeUI() {
+        if (!matchMedia('(hover: hover)').matches) return;
+
+        var credit = document.createElement('div');
+        credit.className = 'design-ui-credit';
+        credit.setAttribute('aria-hidden', 'true');
+        credit.innerHTML = '\u{1F49C} by ClickUp Brain';
+        document.body.appendChild(credit);
+
+        var timer = null;
+        var fade = function (out) { credit.style.opacity = out ? '0' : ''; };
+        fade(true);
+        var show = function () {
+            fade(false);
+            clearTimeout(timer);
+            timer = setTimeout(function () { fade(true); }, 3000);
+        };
+        document.addEventListener('mousemove', show);
+        show();
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initChromeUI);
+    } else {
+        initChromeUI();
+    }
+})();
+
+</script>
+<!-- /skill:chrome -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANITECH SN - Solutions d'Hygiène Écologiques au Sénégal</title>
+    <meta name="description" content="SANITECH SN : produits d'hygiène et de nettoyage 100% écologiques pour les entreprises au Sénégal. Bureaux, hôtels, industries, santé.">
+    <meta name="keywords" content="nettoyage écologique Sénégal, hygiène entreprise Dakar, produits écoresponsables, SANITECH SN">
+    <meta property="og:title" content="SANITECH SN - Hygiène Écologique Professionnelle">
+    <meta property="og:description" content="Solutions d'hygiène et de nettoyage écologiques pour les entreprises sénégalaises.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --green-dark: oklch(35% 0.12 145);
+            --green-mid: oklch(45% 0.15 145);
+            --green-main: oklch(52% 0.14 145);
+            --green-light: oklch(92% 0.04 145);
+            --green-pale: oklch(96% 0.02 145);
+            --text-primary: oklch(20% 0.01 145);
+            --text-secondary: oklch(40% 0.01 145);
+            --text-muted: oklch(55% 0.008 145);
+            --surface-white: oklch(99% 0.003 145);
+            --surface-off: oklch(97% 0.005 145);
+            --border: oklch(90% 0.01 145);
+            --shadow-sm: 0 1px 3px oklch(20% 0.01 145 / 0.08);
+            --shadow-md: 0 4px 12px oklch(20% 0.01 145 / 0.1);
+            --shadow-lg: 0 12px 32px oklch(20% 0.01 145 / 0.12);
+            --radius: 12px;
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            color: var(--text-primary);
+            background: var(--surface-white);
+            line-height: 1.6;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: oklch(99% 0.003 145 / 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-logo img {
+            height: 44px;
+            width: 44px;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .nav-logo span {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--green-dark);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s var(--ease-out);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--green-light);
+            color: var(--green-dark);
+        }
+
+        .nav-cta {
+            background: var(--green-main) !important;
+            color: var(--surface-white) !important;
+            padding: 10px 20px !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--green-dark) !important;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: all 0.3s var(--ease-out);
+        }
+
+        /* PAGES */
+        .page { display: none; }
+        .page.active { display: block; }
+
+        /* HERO */
+        .hero {
+            padding: 140px 24px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.15;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, var(--surface-white) 0%, oklch(96% 0.03 145 / 0.9) 50%, var(--surface-white) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 3.4rem);
+            line-height: 1.15;
+            color: var(--green-dark);
+            margin-bottom: 20px;
+        }
+
+        .hero-text h1 span {
+            color: var(--green-main);
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 50ch;
+            margin-bottom: 32px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.25s var(--ease-out);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--green-main);
+            color: white;
+            box-shadow: 0 4px 16px oklch(45% 0.15 145 / 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px oklch(45% 0.15 145 / 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--surface-white);
+            color: var(--green-dark);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--green-main);
+            background: var(--green-pale);
+        }
+
+        .hero-image {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* STATS */
+        .stats {
+            padding: 48px 24px;
+            background: var(--green-dark);
+        }
+
+        .stats-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 12px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .stat-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: oklch(80% 0.04 145);
+            margin-top: 4px;
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 80px 24px;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 56px;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+            color: var(--green-dark);
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* SERVICES PREVIEW */
+        .services-preview {
+            background: var(--surface-off);
+        }
+
+        .services-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            background: var(--surface-white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s var(--ease-out);
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .service-card-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .service-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s var(--ease-out);
+        }
+
+        .service-card:hover .service-card-img img {
+            transform: scale(1.05);
+        }
+
+        .service-card-body {
+            padding: 24px;
+        }
+
+        .service-card-body h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--green-dark);
+            margin-bottom: 8px;
+        }
+
+        .service-card-body p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* WHY US */
+        .why-us-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .why-item {
+            display: flex;
+            gap: 16px;
+            padding: 24px;
+            background: var(--surface-off);
+            border-radius: var(--radius);
+            transition: all 0.2s var(--ease-out);
+        }
+
+        .why-item:hover {
+            background: var(--green-light);
+        }
+
+        .why-item-icon {
+            width: 56px;
+            height: 56px;
+            min-width: 56px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .why-item-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .why-item h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--green-dark);
+            margin-bottom: 4px;
+        }
+
+        .why-item p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* TRUST */
+        .trust {
+            background: var(--green-pale);
+            text-align: center;
+        }
+
+        .trust-logos {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 24px;
+        }
+
+        .trust-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 16px;
+            background: var(--surface-white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .trust-item-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .trust-item-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .trust-item span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* TESTIMONIALS */
+        .testimonials {
+            background: var(--surface-off);
+        }
+
+        .testimonial-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .testimonial-card {
+            background: var(--surface-white);
+            padding: 28px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .testimonial-stars {
+            color: oklch(75% 0.15 85);
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .testimonial-role {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* ABOUT PAGE */
+        .about-hero {
+            padding: 140px 24px 60px;
+            background: var(--green-pale);
+        }
+
+        .about-hero-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .about-hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            color: var(--green-dark);
+            margin-bottom: 16px;
+        }
+
+        .about-hero-text p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .about-hero-image {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .about-hero-image img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-mission {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        .about-mission-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .about-mission-img {
+            border-radius: var(--radius);
+            overflow: hidden;
+            height: 280px;
+        }
+
+        .about-mission-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-mission-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--green-dark);
+            margin-bottom: 16px;
+        }
+
+        .about-mission-text p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ABOUT VALUES */
+        .about-values {
+            background: var(--surface-off);
+            padding: 80px 24px;
+        }
+
+        .values-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+        }
+
+        .value-card {
+            text-align: center;
+            padding: 32px 24px;
+            background: var(--surface-white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s var(--ease-out);
+        }
+
+        .value-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .value-card-icon {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 16px;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .value-card-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .value-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--green-dark);
+            margin-bottom: 8px;
+        }
+
+        .value-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* SERVICES PAGE */
+        .services-hero {
+            padding: 140px 24px 60px;
+            background: var(--green-pale);
+            text-align: center;
+        }
+
+        .services-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            color: var(--green-dark);
+            margin-bottom: 12px;
+        }
+
+        .services-hero p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 55ch;
+            margin: 0 auto;
+        }
+
+        .service-detail {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .service-detail:nth-child(even) {
+            direction: rtl;
+        }
+
+        .service-detail:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .service-detail-img {
+            border-radius: var(--radius);
+            overflow: hidden;
+            height: 320px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .service-detail-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .service-detail-text h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--green-dark);
+            margin-bottom: 12px;
+        }
+
+        .service-detail-text p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .service-detail-text ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .service-detail-text ul li {
+            padding: 6px 0;
+            padding-left: 24px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .service-detail-text ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 12px;
+            width: 8px;
+            height: 8px;
+            background: var(--green-main);
+            border-radius: 50%;
+        }
+
+        /* FAQ */
+        .faq {
+            background: var(--surface-off);
+        }
+
+        .faq-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--surface-white);
+            border-radius: var(--radius);
+            margin-bottom: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .faq-question {
+            padding: 20px 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .faq-question:hover {
+            background: var(--green-pale);
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: var(--green-main);
+            transition: transform 0.3s var(--ease-out);
+        }
+
+        .faq-item.open .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s var(--ease-out);
+        }
+
+        .faq-answer-inner {
+            padding: 0 24px 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 200px;
+        }
+
+        /* DEVIS PAGE */
+        .devis-hero {
+            padding: 140px 24px 60px;
+            background: var(--green-pale);
+            text-align: center;
+        }
+
+        .devis-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            color: var(--green-dark);
+            margin-bottom: 12px;
+        }
+
+        .devis-hero p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .devis-form-section {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: border-color 0.2s;
+            background: var(--surface-white);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--green-main);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 16px;
+            background: var(--green-main);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s var(--ease-out);
+        }
+
+        .form-submit:hover {
+            background: var(--green-dark);
+            transform: translateY(-2px);
+        }
+
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            background: var(--green-light);
+            border-radius: var(--radius);
+        }
+
+        .form-success h3 {
+            font-size: 1.3rem;
+            color: var(--green-dark);
+            margin-bottom: 12px;
+        }
+
+        .form-success p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--green-dark);
+            color: oklch(85% 0.02 145);
+            padding: 60px 24px 32px;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand img {
+            height: 48px;
+            width: 48px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        .footer-links h4,
+        .footer-contact h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        .footer-links a {
+            display: block;
+            color: oklch(80% 0.02 145);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 4px 0;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-contact p {
+            font-size: 0.9rem;
+            padding: 4px 0;
+            opacity: 0.8;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: oklch(40% 0.08 145);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s var(--ease-out);
+        }
+
+        .footer-social a:hover {
+            background: var(--green-main);
+            transform: translateY(-2px);
+        }
+
+        .footer-social a svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid oklch(40% 0.05 145);
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        /* WHATSAPP */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 999;
+            width: 60px;
+            height: 60px;
+            background: oklch(62% 0.2 145);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px oklch(50% 0.15 145 / 0.4);
+            transition: all 0.3s var(--ease-out);
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 28px oklch(50% 0.15 145 / 0.5);
+        }
+
+        .whatsapp-float svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 72px;
+                left: 0;
+                right: 0;
+                background: var(--surface-white);
+                padding: 16px;
+                border-bottom: 1px solid var(--border);
+                box-shadow: var(--shadow-md);
+            }
+
+            .hero-content,
+            .about-hero-content,
+            .about-mission-content,
+            .service-detail {
+                grid-template-columns: 1fr;
+            }
+
+            .service-detail:nth-child(even) {
+                direction: ltr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+
+            .why-us-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .hero-image {
+                order: -1;
+            }
+
+            .hero-image img {
+                height: 240px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAV -->
+    <nav>
+        <div class="nav-logo">
+            <img src="https://t90152591520.p.clickup-attachments.com/t90152591520/8234a3ab-0312-4175-ba26-a469fc093c06/SANITECH_SN-removebg-preview.png" alt="SANITECH SN">
+            <span>SANITECH SN</span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#" onclick="showPage('accueil')" class="active" id="nav-accueil">Accueil</a></li>
+            <li><a href="#" onclick="showPage('apropos')" id="nav-apropos">À propos</a></li>
+            <li><a href="#" onclick="showPage('services')" id="nav-services">Services</a></li>
+            <li><a href="#" onclick="showPage('devis')" class="nav-cta" id="nav-devis">Demander un devis</a></li>
+        </ul>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- ACCUEIL -->
+    <div class="page active" id="page-accueil">
+        <section class="hero">
+            <div class="hero-bg">
+                <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1400&q=80" alt="">
+            </div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>L'hygiène <span>écologique</span> pour votre entreprise</h1>
+                    <p>Des solutions de nettoyage professionnelles, 100% écoresponsables, adaptées aux entreprises sénégalaises. Zéro produit toxique, efficacité maximale.</p>
+                    <div class="hero-buttons">
+                        <a href="#" onclick="showPage('devis')" class="btn btn-primary">Demander un devis gratuit</a>
+                        <a href="#" onclick="showPage('services')" class="btn btn-secondary">Nos services</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=700&q=80" alt="Nettoyage professionnel écologique">
+                </div>
+            </div>
+        </section>
+
+        <section class="stats">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=100&q=80" alt="Écologie">
+                    </div>
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Écologique</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=100&q=80" alt="Secteurs">
+                    </div>
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Secteurs couverts</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <img src="https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=100&q=80" alt="Non toxique">
+                    </div>
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Produit toxique</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=100&q=80" alt="Rapidité">
+                    </div>
+                    <div class="stat-number">24h</div>
+                    <div class="stat-label">Intervention rapide</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="services-preview">
+            <div class="section-header">
+                <h2>Nos solutions professionnelles</h2>
+                <p>Des prestations adaptées à chaque secteur d'activité</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-card-img">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" alt="Nettoyage bureaux">
+                    </div>
+                    <div class="service-card-body">
+                        <h3>Bureaux & Espaces de travail</h3>
+                        <p>Nettoyage quotidien, désinfection des surfaces, entretien des sanitaires avec des produits respectueux de vos collaborateurs.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-img">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80" alt="Nettoyage hôtels">
+                    </div>
+                    <div class="service-card-body">
+                        <h3>Hôtellerie & Restauration</h3>
+                        <p>Hygiène irréprochable pour vos chambres, espaces communs et cuisines. Certification aux normes internationales.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-img">
+                        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80" alt="Nettoyage industriel">
+                    </div>
+                    <div class="service-card-body">
+                        <h3>Sites industriels</h3>
+                        <p>Dégraissage, décapage et entretien des sols industriels avec des solutions puissantes et biodégradables.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-header">
+                <h2>Pourquoi choisir SANITECH SN</h2>
+                <p>Des valeurs qui font la différence pour votre entreprise</p>
+            </div>
+            <div class="why-us-grid">
+                <div class="why-item">
+                    <div class="why-item-icon">
+                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=120&q=80" alt="Écologie">
+                    </div>
+                    <div>
+                        <h4>100% Écologique</h4>
+                        <p>Tous nos produits sont biodégradables et respectueux de l'environnement. Zéro impact négatif.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <div class="why-item-icon">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=120&q=80" alt="Efficacité">
+                    </div>
+                    <div>
+                        <h4>Efficacité prouvée</h4>
+                        <p>Des résultats visibles dès la première intervention. Nos produits allient écologie et performance.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <div class="why-item-icon">
+                        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=120&q=80" alt="Proximité">
+                    </div>
+                    <div>
+                        <h4>Proximité & Réactivité</h4>
+                        <p>Basés à Dakar, nous intervenons sous 24h partout au Sénégal. Un interlocuteur dédié pour chaque client.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <div class="why-item-icon">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=120&q=80" alt="Innovation">
+                    </div>
+                    <div>
+                        <h4>Innovation continue</h4>
+                        <p>Nous investissons dans les dernières technologies de nettoyage écoresponsable pour rester à la pointe.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="trust">
+            <div class="section-header">
+                <h2>Ils nous font confiance</h2>
+                <p>Nos secteurs d'intervention au Sénégal</p>
+            </div>
+            <div class="trust-logos">
+                <div class="trust-item">
+                    <div class="trust-item-icon">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=100&q=80" alt="Hôtels">
+                    </div>
+                    <span>Hôtels</span>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-item-icon">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=100&q=80" alt="Bureaux">
+                    </div>
+                    <span>Bureaux</span>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-item-icon">
+                        <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=100&q=80" alt="Cliniques">
+                    </div>
+                    <span>Cliniques</span>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-item-icon">
+                        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=100&q=80" alt="Industries">
+                    </div>
+                    <span>Industries</span>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-item-icon">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=100&q=80" alt="Restaurants">
+                    </div>
+                    <span>Restaurants</span>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-item-icon">
+                        <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=100&q=80" alt="Écoles">
+                    </div>
+                    <span>Écoles</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <div class="section-header">
+                <h2>Ce que disent nos partenaires</h2>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Depuis que nous travaillons avec SANITECH SN, la qualité de l'air dans nos bureaux s'est nettement améliorée. Nos employés le ressentent."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80" alt="Avatar">
+                        </div>
+                        <div>
+                            <div class="testimonial-name">Moussa Diallo</div>
+                            <div class="testimonial-role">Directeur, Cabinet Diallo & Associés</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"L'approche écologique nous a convaincus. Nos clients apprécient l'effort environnemental et la propreté est irréprochable."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=80&q=80" alt="Avatar">
+                        </div>
+                        <div>
+                            <div class="testimonial-name">Aminata Sy</div>
+                            <div class="testimonial-role">Gérante, Hôtel Teranga Dakar</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Réactivité exemplaire. En 24h ils étaient sur site. Les produits sont efficaces même sur nos sols industriels les plus encrassés."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80" alt="Avatar">
+                        </div>
+                        <div>
+                            <div class="testimonial-name">Ibrahima Ndiaye</div>
+                            <div class="testimonial-role">Resp. Maintenance, SONACOS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq">
+            <div class="section-header">
+                <h2>Questions fréquentes</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Vos produits sont-ils certifiés ?</div>
+                    <div class="faq-answer"><div class="faq-answer-inner">Oui, tous nos produits disposent de certifications écologiques reconnues. Ils sont biodégradables, non toxiques et conformes aux normes environnementales internationales.</div></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Quels sont vos délais d'intervention ?</div>
+                    <div class="faq-answer"><div class="faq-answer-inner">Nous intervenons sous 24 heures à Dakar et sa banlieue. Pour les autres régions du Sénégal, comptez 48 à 72 heures selon la localisation.</div></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Proposez-vous des contrats longue durée ?</div>
+                    <div class="faq-answer"><div class="faq-answer-inner">Oui, nous proposons des contrats mensuels, trimestriels et annuels avec des tarifs préférentiels. Plus la durée est longue, plus le tarif est avantageux.</div></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Vos produits sont-ils aussi efficaces que les produits chimiques classiques ?</div>
+                    <div class="faq-answer"><div class="faq-answer-inner">Absolument. Nos produits écologiques offrent la même puissance nettoyante que les produits conventionnels, sans les effets nocifs sur la santé et l'environnement.</div></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Livrez-vous en dehors de Dakar ?</div>
+                    <div class="faq-answer"><div class="faq-answer-inner">Oui, nous livrons partout au Sénégal. Les frais de livraison varient selon la distance. Contactez-nous pour un devis personnalisé incluant la livraison.</div></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Comment obtenir un devis ?</div>
+                    <div class="faq-answer"><div class="faq-answer-inner">Remplissez notre formulaire en ligne, appelez-nous au 77 398 90 02, ou envoyez un message WhatsApp. Un agent vous répond sous 24h avec un devis détaillé et gratuit.</div></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- À PROPOS -->
+    <div class="page" id="page-apropos">
+        <section class="about-hero">
+            <div class="about-hero-content">
+                <div class="about-hero-text">
+                    <h1>Notre engagement pour un Sénégal plus propre</h1>
+                    <p>SANITECH SN est née d'une conviction simple : il est possible de garantir une hygiène professionnelle irréprochable tout en préservant notre environnement. Fondée à Dakar, notre entreprise accompagne les professionnels sénégalais vers des pratiques de nettoyage durables et responsables.</p>
+                </div>
+                <div class="about-hero-image">
+                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=80" alt="Équipe SANITECH SN">
+                </div>
+            </div>
+        </section>
+
+        <div class="about-mission">
+            <div class="about-mission-content">
+                <div class="about-mission-img">
+                    <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=600&q=80" alt="Mission écologique">
+                </div>
+                <div class="about-mission-text">
+                    <h2>Notre mission</h2>
+                    <p>Rendre accessible aux entreprises sénégalaises des solutions d'hygiène qui respectent à la fois la santé des occupants et notre planète. Nous croyons que performance et écologie ne sont pas incompatibles : elles sont complémentaires.</p>
+                    <p style="margin-top: 12px;">Chaque produit que nous proposons est sélectionné pour son efficacité ET son impact minimal sur l'environnement. Pas de compromis.</p>
+                </div>
+            </div>
+        </div>
+
+        <section class="about-values">
+            <div class="section-header">
+                <h2>Nos valeurs fondatrices</h2>
+                <p>Ce qui guide chacune de nos actions</p>
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-card-icon">
+                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=150&q=80" alt="Écologie">
+                    </div>
+                    <h3>Écologie</h3>
+                    <p>Des produits 100% biodégradables qui protègent la nature sénégalaise pour les générations futures.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-card-icon">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=150&q=80" alt="Efficacité">
+                    </div>
+                    <h3>Efficacité</h3>
+                    <p>Des résultats professionnels visibles, sans jamais compromettre la santé de vos équipes.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-card-icon">
+                        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=150&q=80" alt="Proximité">
+                    </div>
+                    <h3>Proximité</h3>
+                    <p>Un interlocuteur dédié, une intervention sous 24h, un service personnalisé à chaque client.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-card-icon">
+                        <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=150&q=80" alt="Innovation">
+                    </div>
+                    <h3>Innovation</h3>
+                    <p>Les dernières avancées en nettoyage écoresponsable au service de votre entreprise.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <div class="section-header">
+                <h2>Ce que disent nos partenaires</h2>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Depuis que nous travaillons avec SANITECH SN, la qualité de l'air dans nos bureaux s'est nettement améliorée. Nos employés le ressentent."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80" alt="Avatar">
+                        </div>
+                        <div>
+                            <div class="testimonial-name">Moussa Diallo</div>
+                            <div class="testimonial-role">Directeur, Cabinet Diallo & Associés</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"L'approche écologique nous a convaincus. Nos clients apprécient l'effort environnemental et la propreté est irréprochable."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=80&q=80" alt="Avatar">
+                        </div>
+                        <div>
+                            <div class="testimonial-name">Aminata Sy</div>
+                            <div class="testimonial-role">Gérante, Hôtel Teranga Dakar</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Réactivité exemplaire. En 24h ils étaient sur site. Les produits sont efficaces même sur nos sols industriels les plus encrassés."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80" alt="Avatar">
+                        </div>
+                        <div>
+                            <div class="testimonial-name">Ibrahima Ndiaye</div>
+                            <div class="testimonial-role">Resp. Maintenance, SONACOS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- SERVICES -->
+    <div class="page" id="page-services">
+        <section class="services-hero">
+            <h1>Nos services de nettoyage</h1>
+            <p>Des prestations complètes et écologiques pour chaque secteur d'activité au Sénégal</p>
+        </section>
+
+        <div class="service-detail">
+            <div class="service-detail-img">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&q=80" alt="Nettoyage bureaux">
+            </div>
+            <div class="service-detail-text">
+                <h2>Bureaux & Espaces de travail</h2>
+                <p>Un environnement de travail sain booste la productivité. Nous assurons un nettoyage complet et régulier de vos locaux professionnels.</p>
+                <ul>
+                    <li>Nettoyage quotidien des surfaces et mobiliers</li>
+                    <li>Désinfection des postes de travail</li>
+                    <li>Entretien des sols (moquette, carrelage, parquet)</li>
+                    <li>Nettoyage des vitres et cloisons</li>
+                    <li>Gestion des sanitaires et espaces communs</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="service-detail">
+            <div class="service-detail-img">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&q=80" alt="Nettoyage hôtels">
+            </div>
+            <div class="service-detail-text">
+                <h2>Hôtellerie & Restauration</h2>
+                <p>L'image de votre établissement passe par une hygiène irréprochable. Nous garantissons un standard 5 étoiles avec des produits qui respectent vos clients.</p>
+                <ul>
+                    <li>Nettoyage des chambres et suites</li>
+                    <li>Entretien des espaces de réception</li>
+                    <li>Désinfection des cuisines (normes HACCP)</li>
+                    <li>Nettoyage des piscines et espaces bien-être</li>
+                    <li>Traitement des textiles et literie</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="service-detail">
+            <div class="service-detail-img">
+                <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=700&q=80" alt="Nettoyage industriel">
+            </div>
+            <div class="service-detail-text">
+                <h2>Sites industriels</h2>
+                <p>Des solutions puissantes et biodégradables pour vos environnements les plus exigeants. Nous intervenons sur tous types de surfaces industrielles.</p>
+                <ul>
+                    <li>Dégraissage de sols et équipements</li>
+                    <li>Décapage et traitement de surfaces</li>
+                    <li>Nettoyage haute pression écologique</li>
+                    <li>Entretien des ateliers et zones de production</li>
+                    <li>Gestion des déchets et tri sélectif</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="service-detail">
+            <div class="service-detail-img">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=700&q=80" alt="Sanitaires">
+            </div>
+            <div class="service-detail-text">
+                <h2>Sanitaires & Équipements No Touch</h2>
+                <p>Des sanitaires impeccables avec des solutions sans contact. Hygiène maximale, confort optimal pour vos visiteurs et collaborateurs.</p>
+                <ul>
+                    <li>Installation de distributeurs automatiques</li>
+                    <li>Fourniture de produits d'hygiène écolos</li>
+                    <li>Désinfection et détartrage régulier</li>
+                    <li>Solutions anti-odeurs naturelles</li>
+                    <li>Maintenance préventive des équipements</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="service-detail">
+            <div class="service-detail-img">
+                <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=700&q=80" alt="Santé">
+            </div>
+            <div class="service-detail-text">
+                <h2>Établissements de santé</h2>
+                <p>Un niveau d'hygiène hospitalier avec des produits qui ne compromettent pas la santé des patients. Conformité totale aux protocoles sanitaires.</p>
+                <ul>
+                    <li>Désinfection des salles de soin</li>
+                    <li>Bio-nettoyage des blocs opératoires</li>
+                    <li>Entretien des zones d'accueil</li>
+                    <li>Gestion des DASRI (déchets médicaux)</li>
+                    <li>Protocoles adaptés aux zones à risque</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- DEVIS -->
+    <div class="page" id="page-devis">
+        <section class="devis-hero">
+            <h1>Demander un devis gratuit</h1>
+            <p>Remplissez le formulaire ci-dessous, un agent SANITECH SN vous contacte sous 24h</p>
+        </section>
+
+        <div class="devis-form-section">
+            <form id="devisForm" onsubmit="submitDevis(event)">
+                <div class="form-group">
+                    <label>Votre nom complet</label>
+                    <input type="text" placeholder="Ex: Moussa Diallo" required>
+                </div>
+                <div class="form-group">
+                    <label>Adresse email</label>
+                    <input type="email" placeholder="votre@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Numéro de téléphone</label>
+                    <input type="tel" placeholder="77 xxx xx xx" required>
+                </div>
+                <div class="form-group">
+                    <label>Nom de votre entreprise</label>
+                    <input type="text" placeholder="Ex: Hôtel Teranga">
+                </div>
+                <div class="form-group">
+                    <label>Service souhaité</label>
+                    <select required>
+                        <option value="">Sélectionnez un service</option>
+                        <option>Nettoyage de bureaux</option>
+                        <option>Hôtellerie & Restauration</option>
+                        <option>Nettoyage industriel</option>
+                        <option>Sanitaires & Équipements No Touch</option>
+                        <option>Établissements de santé</option>
+                        <option>Autre (préciser ci-dessous)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Détails de votre demande</label>
+                    <textarea placeholder="Décrivez vos besoins : surface, fréquence souhaitée, contraintes particulières..."></textarea>
+                </div>
+                <button type="submit" class="form-submit">Envoyer ma demande de devis</button>
+            </form>
+
+            <div class="form-success" id="formSuccess">
+                <h3>Demande envoyée avec succès !</h3>
+                <p>Un agent SANITECH SN va prendre en charge votre demande sous 24h. Nous vous contacterons par email ou téléphone.</p>
+                <a href="https://wa.me/221773989002?text=Bonjour%20SANITECH%20SN%2C%20je%20viens%20de%20faire%20une%20demande%20de%20devis%20sur%20votre%20site." class="btn btn-primary" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    Contacter sur WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="https://t90152591520.p.clickup-attachments.com/t90152591520/8234a3ab-0312-4175-ba26-a469fc093c06/SANITECH_SN-removebg-preview.png" alt="SANITECH SN">
+                <p>Solutions d'hygiène et de nettoyage 100% écologiques pour les entreprises sénégalaises. Propreté, santé, environnement.</p>
+                <div class="footer-social">
+                    <a href="https://facebook.com/sanitechsn" target="_blank"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                    <a href="https://instagram.com/sanitechsn" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+                    <a href="https://wa.me/221773989002" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Navigation</h4>
+                <a href="#" onclick="showPage('accueil')">Accueil</a>
+                <a href="#" onclick="showPage('apropos')">À propos</a>
+                <a href="#" onclick="showPage('services')">Services</a>
+                <a href="#" onclick="showPage('devis')">Devis gratuit</a>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact</h4>
+                <p>77 398 90 02</p>
+                <p>33 832 56 51</p>
+                <p>contactsanitechsn@gmail.com</p>
+                <p>Dakar, Sénégal</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 SANITECH SN. Tous droits réservés.
+        </div>
+    </footer>
+
+    <!-- WHATSAPP FLOAT -->
+    <a href="https://wa.me/221773989002?text=Bonjour%20SANITECH%20SN%2C%20je%20souhaite%20des%20informations%20sur%20vos%20services." class="whatsapp-float" target="_blank" title="Contactez-nous sur WhatsApp">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+
+    <script>
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + page).classList.add('active');
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            document.getElementById('nav-' + page).classList.add('active');
+            document.getElementById('navLinks').classList.remove('open');
+            window.scrollTo(0, 0);
+        }
+
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('open');
+        }
+
+        function toggleFaq(el) {
+            el.parentElement.classList.toggle('open');
+        }
+
+        function submitDevis(e) {
+            e.preventDefault();
+            document.getElementById('devisForm').style.display = 'none';
+            document.getElementById('formSuccess').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
